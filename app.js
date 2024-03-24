@@ -14,7 +14,7 @@ const mongoose = require('mongoose')
 const createError = require('http-errors');
 const path = require('path');
 const asyncErrorHandler = require("./utils/asyncErrorHandler");
-const debug = require('debug')('inventory-app:reqests')
+const debug = require('debug')
 // const { validationResult, body } = require("express-validator")
 
 // routes
@@ -22,21 +22,31 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const inventoryRouter = require('./routes/inventory')
 
+const requestsDebug = debug('inventory-app:reqests')
+const dbDebug = debug('inventory-app:db')
+
 const app = express();
+
+const dbURI = process.env.MONGO_URI || ''
+mongoose
+  .connect(dbURI)
+  .then(success => dbDebug('connected'))
+  .catch(err => dbDebug("Failed to connect:", err.message))
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use((req, res, next) => {
-  debug(req.method, req.originalUrl)
+  requestsDebug(req.method, req.originalUrl)
   next()
 })
 
 // set rate limits
 const limiter = RateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
-  max: 40,
+  max: 80,
 });
 app.use(limiter);
 
