@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 1.250rem;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.inventory-app {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  flex: 1;
+}
+
+.page-content {
+  flex: 6;
+}

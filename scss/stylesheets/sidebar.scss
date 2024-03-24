@@ -1,0 +1,23 @@
+.sidebar {
+  background-color: #3b94d1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+
+  &__nav-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: auto;
+    gap: 1em;
+  }
+
+  &__nav-link {
+    color: white;
+    text-transform: capitalize;
+  }
+}

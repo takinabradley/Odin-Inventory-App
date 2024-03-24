@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/layout.css" />
+    <link rel="stylesheet" href="/stylesheets/sidebar.css" />
+    <link rel="stylesheet" href="/stylesheets/inventoryIndex.css" />
+  </head>
+  <body>
+    <div class="inventory-app">
+      <div class="sidebar">
+        <nav class="sidebar__nav">
+          <ul class="sidebar__nav-list">
+            <li class="sidebar__nav-item">
+              <a href="/" class="sidebar__nav-link"> home </a>
+            </li>
+
+            <li class="sidebar__nav-item">
+              <a href="/inventory/categories" class="sidebar__nav-link">
+                categories
+              </a>
+            </li>
+            <li class="sidebar__nav-item">
+              <a href="/inventory/items/all" class="sidebar__nav-link">
+                all items
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="page-content">
+        <header class="site-header">
+          <h1><%= title %></h1>
+          <!--             
+            <div class="search-container">
+              <input type="search" class="search-bar" />
+            </div>
+            <div class="options">
+              <button>New</button>
+              <button>Update</button>
+            </div> -->
+        </header>
+
+        <main>
+          <p>Welcome to the Inventory Management App!</p>
+          <p>
+            Get started by browsing by category or through all our offerings!
+          </p>
+
+          <div class="browse-options">
+            <a class="browse-options__option" href="/inventory/categories">
+              categories
+            </a>
+
+            <a class="browse-options__option" href="/inventory/items/all">
+              all items
+            </a>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
