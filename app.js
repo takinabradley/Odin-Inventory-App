@@ -50,7 +50,16 @@ const limiter = RateLimit({
 app.use(limiter);
 
 app.use(compression())
-app.use(helmet())
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        "img-src": ["'self'", "fakestoreapi.com"],
+      },
+    },
+  })
+);
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(sassMiddleware({
