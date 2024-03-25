@@ -7,12 +7,12 @@ const ProductSchema = new Schema({
   price: { type: Number, required: true, min: 0 },
   description: { type: String, minLength: 10, maxLength: 1000 },
   category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
-  img: { type: String },
+  image: { type: String },
   quantity: { type: Number, required: true, min: 0 },
 });
 
 ProductSchema.virtual("url").get(function () {
-  return `/inventory/items/${this._id}`;
+  return `/inventory/products/${this._id}`;
 });
 
 ProductSchema.virtual("inStock").get(function () {
