@@ -23,7 +23,7 @@ async function populate() {
 
   for (const category of categories) {
     try {
-      await Category.create({ name: category })
+      // await Category.create({ name: category })
     } catch (e) { console.log(e.message) }
   }
   console.log('categories created')
