@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/layout.css" />
+    <link rel="stylesheet" href="/stylesheets/sidebar.css" />
+    <link rel="stylesheet" href="/stylesheets/productList.css" />
+  </head>
+  <body>
+    <div class="inventory-app">
+      <%- include('sidebar') %>
+      <div class="page-content">
+        <header class="site-header">
+          <h1><%= title %></h1>
+
+          <div class="options">
+            <button>New</button>
+            <!-- <button>Update</button> -->
+          </div>
+        </header>
+
+        <main>
+          <div class="browse-options">
+            <%products.forEach(product => { %> 
+              <%- include('productOption', {product}) %>
+            <% }) %>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

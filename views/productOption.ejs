@@ -1,0 +1,21 @@
+<div class="product-option">
+  <div class="product-option__img-container">
+    <img
+      class="product-img"
+      src="<%= product.image %>"
+      alt="<%= product.name %>"
+    />
+  </div>
+
+  <div class="product-option__details">
+    <a class="product-option__name" href="<%- product.url %>">
+      <%= product.name %>
+    </a>
+
+    <p class="product-option__price">$<%= product.price %></p>
+
+    <p class="product-option__description"><%= product.description %></p>
+
+    <input type="number" disabled value="<%= product.quantity %>" />
+  </div>
+</div>
