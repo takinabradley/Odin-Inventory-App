@@ -1,11 +1,9 @@
 <div class="product-option">
-  <div class="product-option__img-container">
     <img
-      class="product-img"
+      class="product-option__img"
       src="<%= product.image %>"
       alt="<%= product.name %>"
     />
-  </div>
 
   <div class="product-option__details">
     <a class="product-option__name" href="<%- product.url %>">
@@ -16,6 +14,11 @@
 
     <p class="product-option__description"><%= product.description %></p>
 
-    <input type="number" disabled value="<%= product.quantity %>" />
+
+    <form name="productItemForm" method="post">
+      <input type="number" value="<%= product.quantity %>" />
+      <input type="submit" formmethod="post" formaction="<%= product.url + '/update' %>" value="Edit" />
+      <input type="submit" rmmethod="post" formaction="<%= product.url + '/delete' %>" value="Delete" />
+    </form>
   </div>
 </div>
