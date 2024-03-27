@@ -6,7 +6,7 @@
     <title><%= title %></title>
     <link rel="stylesheet" href="/stylesheets/layout.css" />
     <link rel="stylesheet" href="/stylesheets/sidebar.css" />
-    <link rel="stylesheet" href="/stylesheets/inventoryIndex.css" />
+    <link rel="stylesheet" href="/stylesheets/catgegoriesList.css" />
   </head>
   <body>
     <div class="inventory-app">
@@ -30,7 +30,7 @@
           </div>
 
           <div class="options">
-            <button>New</button>
+            <button><a href="/inventory/categories/create">New</a></button>
             <!-- <button>Update</button> -->
           </div>
         </header>
@@ -38,11 +38,27 @@
         <main>
           <div class="browse-options">
             <%categories.forEach(category => {%>
-            <a class="browse-options__option" href="<%- category.url %>">
-              <%= category.name %>
-            </a>
+            <div class="category-option">
+              <a class="category-option__name" href="<%- category.url %>">
+                <%= category.name %>
+              </a>
+              <form action="<%- category.url + '/delete' %>" method="POST">
+                <button type="submit" class="category-option__delete">Delete</button>
+              </form>
+              
+            </div>
+            
             <% }) %>
           </div>
+
+          <dialog <%- showDeleteError ? 'open' : '' %> >
+            <div class="dialog-message">
+              Category could not be deleted. Please delete products first.
+            </div>
+            <form method="dialog">
+              <button>OK</button>
+            </form>
+          </dialog>
         </main>
       </div>
     </div>

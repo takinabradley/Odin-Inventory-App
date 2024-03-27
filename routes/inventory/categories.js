@@ -4,6 +4,30 @@ const router = Router()
 const Category = require('../../models/Category')
 const Product = require('../../models/Product')
 const asyncErrorHandler = require('../../utils/asyncErrorHandler')
+const { validationResult, body } = require("express-validator")
+
+// quick trick to pass context between routes
+let showDeleteError = false;
+
+// create
+router.get('/create', (req, res) => {
+  res.render('categoryCreate', {title: "Create category", errors: []})
+})
+
+router.post(
+  '/create', 
+  body('categoryName').notEmpty().escape(),
+  asyncErrorHandler(async (req, res) => {
+    const validationMessages = validationResult(req)
+    if(validationMessages.isEmpty()) {
+      await Category.create({name: req.body.categoryName})
+      res.redirect('/inventory/categories/')
+    } else {
+      const errors = validationMessages.array();
+      res.render('categoryCreate', {title: "Create category", errors})
+    }
+  })
+)
 
 // read
 router.get('/', asyncErrorHandler(async (req, res) => {
@@ -12,8 +36,11 @@ router.get('/', asyncErrorHandler(async (req, res) => {
   res.render('categoriesList', {
     title: "Categories",
     categories,
-    searchText: ''
+    searchText: '',
+    showDeleteError: showDeleteError,
   })
+
+  showDeleteError = false
 }))
 
 router.get('/search', asyncErrorHandler(async (req, res) => {
@@ -28,20 +55,12 @@ router.get('/search', asyncErrorHandler(async (req, res) => {
   res.render('categoriesList', { title: "Categories", categories, searchText: searchText || '' })
 }))
 
+
 router.get('/:id', asyncErrorHandler(async (req, res) => {
-  const { name: categoryName } = await Category.findById(req.params.id)
+  const category = await Category.findById(req.params.id)
   const products = await Product.find({ category: req.params.id })
-  res.render('productsList', { title: categoryName, products })
+  res.render('productsList', { title: category.name, products, submittedFrom: category.url})
 }))
-
-// create
-router.get('/create', (req, res) => {
-  res.end('Category create not implemented yet')
-})
-
-router.post('/create', (req, res) => {
-  res.end('Category POST create not implemented yet')
-})
 
 // update
 router.get('/:id/update', (req, res) => {
@@ -53,12 +72,19 @@ router.post('/:id/update', (req, res) => {
 })
 
 // delete
-router.get('/:id/delete', (req, res) => {
-  res.end('Category delete not implemented yet')
-})
 
-router.post('/:id/delete', (req, res) => {
-  res.end('Category delete POST update not implemented yet')
-})
+router.post('/:id/delete', asyncErrorHandler(async (req, res) => {
+  const categoryToDelete = await Category.findById(req.params.id)
+  const productsInCategory = await Product.find({category: req.params.id})
+  
+  if(categoryToDelete === null || productsInCategory.length > 0) {
+    showDeleteError = true
+    res.redirect(req.baseUrl)
+    return
+  }
+
+  await Category.findByIdAndDelete(req.params.id)
+  res.redirect(req.baseUrl)
+}))
 
 module.exports = router

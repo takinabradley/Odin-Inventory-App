@@ -1,0 +1,36 @@
+.page-content {
+  display: flex;
+  flex-direction: column; }
+
+main {
+  flex: 1;
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column; }
+
+.browse-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  font-size: 1.25rem;
+  gap: 1em;
+  justify-content: space-around;
+  padding: 1em; }
+
+.category-option {
+  position: relative;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 16 / 9;
+  max-height: 500px;
+  max-width: 500px;
+  background-color: #3b94d1;
+  color: white;
+  text-transform: capitalize; }
+  .category-option__delete {
+    position: absolute;
+    right: 0px;
+    bottom: 0px; }
+
+/*# sourceMappingURL=catgegoriesList.css.map */
