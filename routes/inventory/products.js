@@ -17,13 +17,38 @@ router.get('/', asyncErrorHandler(async (req, res) => {
 }) */
 
 //create
-router.get('/create', (req, res) => {
-  res.end('item create not implemented yet')
-})
+router.get('/create', asyncErrorHandler(async (req, res) => {
+  const categories = await Category.find({}, {name: 1})
+  res.render('productCreate', {title: "Create Product", categories, errors: []})
+}))
 
-router.post('/create', (req, res) => {
-  res.end('items POST create not implemented yet')
-})
+router.post('/create',
+  body('productName').notEmpty().isString().toLowerCase().escape().withMessage('requires three or more letters'),
+  body('productQuantity').notEmpty().toInt().isInt({min: 0}).withMessage("must be greater than 0"),
+  body('productDescription').notEmpty().isString().isLength({min: 10, max: 1000}).withMessage("must be greater than 10 and less than 1000").escape(),
+  body('productPrice').notEmpty().toInt().isInt({min: 0}).withMessage("must be greater than 0"),
+  body('productCategory').notEmpty().isString().isLength({min: 24, max: 24}).withMessage("Invalid category"),
+  asyncErrorHandler(async (req, res) => {
+    const validationMessages = validationResult(req)
+    console.log(validationMessages.array())
+    const categories = await Category.find({}, {name: 1})
+    if(!validationMessages.isEmpty()) {
+      res.render('productCreate', {title: "Create Product", categories, errors: validationMessages.array()})
+      return
+    } 
+    
+    console.log(typeof req.body.productPrice, req.body.productQuantity)
+    await Product.create({
+      name: req.body.productName,
+      quantity: req.body.productQuantity,
+      description: req.body.productDescription,
+      price: req.body.productPrice,
+      category: req.body.productCategory
+    })
+
+    res.redirect('/inventory/products/')
+  })
+)
 
 //update
 
