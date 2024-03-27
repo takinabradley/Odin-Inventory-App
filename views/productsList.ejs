@@ -23,8 +23,8 @@
 
         <main>
           <div class="browse-options">
-            <%products.forEach(product => { %> 
-              <%- include('productOption', {product}) %>
+            <% products.forEach(product => { %> 
+              <%- include('productOption', {product, submittedFrom}) %>
             <% }) %>
           </div>
         </main>

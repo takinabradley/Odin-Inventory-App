@@ -15,10 +15,11 @@
     <p class="product-option__description"><%= product.description %></p>
 
 
-    <form name="productItemForm" method="post">
-      <input type="number" value="<%= product.quantity %>" />
-      <input type="submit" formmethod="post" formaction="<%= product.url + '/update' %>" value="Edit" />
-      <input type="submit" rmmethod="post" formaction="<%= product.url + '/delete' %>" value="Delete" />
+    <form class="product-option__form" name="productItemForm" method="post">
+      <input type="text" hidden value="<%= submittedFrom %>" name="submittedFrom">
+      <input type="number" value="<%= product.quantity %>" name="productQuantity"/>
+      <input type="submit" formmethod="post" formaction="<%= product.url + '/update' %>" name="editProduct" value="Edit" />
+      <input type="submit" formmethod="post" formaction="<%= product.url + '/delete' %>" name="deleteProduct" value="Delete" />
     </form>
   </div>
 </div>

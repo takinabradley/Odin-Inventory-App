@@ -20,8 +20,9 @@ main {
 
 .product-option {
   display: grid;
-  grid-auto-rows: 1fr;
-  background-color: #3b94d1; }
+  grid-auto-rows: 300px 1fr;
+  background-color: #3b94d1;
+  /* &__form {} */ }
   .product-option__img {
     height: 0;
     min-height: 100%;
@@ -35,7 +36,11 @@ main {
   .product-option__name {
     color: white;
     text-transform: capitalize; }
+  .product-option__price {
+    font-weight: bold; }
   .product-option__description {
-    text-transform: capitalize; }
+    flex: 1;
+    text-transform: capitalize;
+    font-size: 1rem; }
 
 /*# sourceMappingURL=productList.css.map */
