@@ -61,4 +61,4 @@ typings/
 .next
 
 # compiled stylesheets
-public/stylesheets/*.css
+public/stylesheets/*
