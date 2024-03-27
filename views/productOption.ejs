@@ -15,7 +15,7 @@
     <p class="product-option__description"><%= product.description %></p>
 
 
-    <form class="product-option__form" name="productItemForm" method="post">
+    <form class="product-option__form" name="productItemForm" method="post" autocomplete="off">
       <input type="text" hidden value="<%= submittedFrom %>" name="submittedFrom">
       <input type="number" value="<%= product.quantity %>" name="productQuantity"/>
       <input type="submit" formmethod="post" formaction="<%= product.url + '/update' %>" name="editProduct" value="Edit" />
